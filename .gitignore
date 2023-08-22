@@ -1,0 +1,7 @@
+# bulkier than any black hole
+node_modules
+
+# Ahh yes, i use IntelliJ idea
+.idea
+
+.env

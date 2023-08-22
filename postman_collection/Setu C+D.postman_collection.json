@@ -1,0 +1,117 @@
+{
+	"info": {
+		"_postman_id": "d4963542-28e4-43c3-a22c-928a67e65ef9",
+		"name": "Setu C+D",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create_user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"John deo\",\n    \"email\": \"johndeo@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create_group",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"John's group\",\n    \"users\": [1,5,6]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/group/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"group",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create_transaction",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"groupId\": 2,\n    \"description\": \"lunch\",\n    \"payerId\": 5,\n    \"total\": 300,\n    \"splitType\":\"EXACT\",\n    \"payeeMap\": {\n        \"1\": 100,\n        \"5\": 60,\n        \"6\": 140\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/transaction/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transaction",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_all_transactions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/transactions/1/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transactions",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SplitType {
+  EQUAL
+  EXACT
+}
+
+model User {
+  id               Int                @id @default(autoincrement())
+  name             String
+  email            String             @unique
+  groups           GroupUser[]
+  Transaction      Transaction[]
+  TransactionPayee TransactionPayee[]
+
+  @@map(name: "tbl__user")
+}
+
+model Group {
+  id          Int           @id @default(autoincrement())
+  name        String
+  members     GroupUser[]
+  Transaction Transaction[]
+
+  @@map(name: "tbl__group")
+}
+
+model GroupUser {
+  userId  Int
+  groupId Int
+  User    User  @relation(fields: [userId], references: [id])
+  Group   Group @relation(fields: [groupId], references: [id])
+
+  @@id([userId, groupId])
+  @@map(name: "tbl__group_user")
+}
+
+model Transaction {
+  id               Int                @id @default(autoincrement())
+  description      String
+  createdAt        DateTime           @default(now())
+  groupId          Int
+  Group            Group              @relation(fields: [groupId], references: [id])
+  payerId          Int
+  Payer            User               @relation(fields: [payerId], references: [id])
+  total            Int
+  splitType        SplitType
+  TransactionPayee TransactionPayee[]
+
+  @@map(name: "tbl__transaction")
+}
+
+model TransactionPayee {
+  id            Int         @id @default(autoincrement())
+  payeeId       Int
+  Payee         User        @relation(fields: [payeeId], references: [id])
+  amount        Int
+  transactionId Int
+  Transaction   Transaction @relation(fields: [transactionId], references: [id])
+
+  @@map(name: "tbl__transaction_payee")
+}
